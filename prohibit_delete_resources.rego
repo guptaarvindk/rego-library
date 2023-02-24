@@ -1,4 +1,4 @@
-package global.libraries.prohibit_delete_resources
+package data.global.libraries.kubernetes
 
 # Copyright 2023 Styra Inc. All rights reserved.
 # Use of this source code is governed by an Apache2
