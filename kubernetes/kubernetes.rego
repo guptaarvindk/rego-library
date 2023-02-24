@@ -1,4 +1,4 @@
-package global.libraries
+package global.libraries.kubernetes
 
 # Copyright 2023 Styra Inc. All rights reserved.
 # Use of this source code is governed by an Apache2
