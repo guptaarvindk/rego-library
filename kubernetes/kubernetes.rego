@@ -12,7 +12,7 @@ import future.keywords.in
 # version: v1
 # title: "CUSTOM: Prohibit deletion of protected deployments except by admins"
 # description: >-
-#   This custom snippet prevents the deletion of protected deployments unless by a specified admin.
+#   This custom snippet prevents the deletion of protected deployments unless its by a specified admin.
 # filePath:
 # - systems/.*/policy/com.styra.kubernetes.validating/rules/.*
 # - stacks/.*/policy/com.styra.kubernetes.validating/rules/.*
