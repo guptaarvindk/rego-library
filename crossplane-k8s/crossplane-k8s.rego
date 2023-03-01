@@ -34,13 +34,13 @@ import future.keywords.in
 #       value: "message"
 #############################################################################
 restrict_s3_region[message] {
-	action_is_s3_bucket_create()
+	action_is_s3_bucket_create(parameters.allowed_regions)
 	not is_valid_region_for_bucket(parameters.allowed_regions)
 
-	message := sprintf("User %s is not authorized to delete protected deployment %s", [input.request.name, input.request.userInfo.username])
+	message := sprintf("Bucket region %s is not in allowed list", input.request.object.spec.forProvider.region)
 }
 
-action_is_s3_bucket_create() {
+action_is_s3_bucket_create(allowed_regions) {
 	input.request.kind.group == "s3.aws.upbound.io"
 	input.request.kind.kind == "Bucket"
 	input.request.operation == "CREATE"
