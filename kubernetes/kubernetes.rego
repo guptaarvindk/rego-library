@@ -90,7 +90,7 @@ deny_host_path_in_blacklist[message] {
 	volume := input.request.object.spec.volumes[_]
 	item := parameters.prohibited_host_paths[_]
 	glob.match(item, [], volume.hostPath.path)
-	message := sprintf("Resource %v uses a prohibited host path.", [utils.input_id])
+	message := sprintf("Resource %v uses a prohibited host path.", [input.request.name])
 }
 
 
