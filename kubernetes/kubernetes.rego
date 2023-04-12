@@ -84,7 +84,6 @@ is_allowed_to_delete_resource(allowed_users) {
 #       key: message
 #       value: "message"
 #############################################################################
-
 deny_host_path_in_blacklist[message] {
 	count(parameters.prohibited_host_paths) > 0
 	volume := input.request.object.spec.volumes[_]
