@@ -54,3 +54,44 @@ action_is_delete_deployment(protected_deployments) {
 is_allowed_to_delete_resource(allowed_users) {
 	input.request.userInfo.username in allowed_users
 }
+
+
+
+#############################################################################
+# METADATA: library-snippet/kubernetes
+# version: v1
+# title: "Podz: Prohibit Specified Host Paths"
+# description: >-
+#   Prevent volumes from accessing prohibited paths on the host node’s file system.
+# filePath:
+# - systems/.*/policy/com.styra.kubernetes.validating/rules/.*
+# - stacks/.*/policy/com.styra.kubernetes.validating/rules/.*
+# policy:
+#   rule:
+#     type: rego
+#     value: "{{this}}[message]"
+# schema:
+#   parameters:
+#     - name: prohibited_host_paths
+#       type: set_of_strings
+#       placeholder: "Examples: /var/run/docker.sock, /var/run/xxx"
+#       required: true
+#   decision:
+#     - type: rego
+#       key: allowed
+#       value: "false"
+#     - type: rego
+#       key: message
+#       value: "message"
+#############################################################################
+
+deny_host_path_in_blacklist[message] {
+	count(parameters.prohibited_host_paths) > 0
+	volume := input.request.object.spec.volumes[_]
+	item := parameters.prohibited_host_paths[_]
+	glob.match(item, [], volume.hostPath.path)
+	message := sprintf("Resource %v uses a prohibited host path.", [utils.input_id])
+}
+
+
+
